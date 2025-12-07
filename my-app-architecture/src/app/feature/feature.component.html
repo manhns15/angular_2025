@@ -1,0 +1,27 @@
+<div>
+    <h2>{{ title }}</h2>
+    <p>Welcome, {{ name }}!</p>
+    <div class="">
+        <button [disabled]="isBtn">Test</button>
+        <button (click)="toggleButton()">Disabled</button>
+    </div>
+    <div class="">
+        <input type="text" [(ngModel)]="name" placeholder="Enter your name" />
+    </div>
+    <div class="">
+        <input type="text" #username placeholder="Enter username" />
+        <button (click)="save(username.value)">Save</button>
+        <p>username: {{username.value}}</p>
+    </div>
+</div>
+
+<div class="" *ngIf="age >= 12; else noPG12">Bạn có thể xem nội dung </div>
+<ng-template #noPG12>
+    <div class="">Bạn không được xem nội dung</div>
+</ng-template>
+
+<div class="">
+    <input type="text" #nameInput placeholder="Enter name to add" />
+    <button (click)="handleSubmit(nameInput.value); nameInput.value = ''">Add Name</button>
+    <app-toggle #toggleComp></app-toggle>
+</div>

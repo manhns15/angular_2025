@@ -1,0 +1,10 @@
+<div class="">
+    <p>{{childName}}</p>
+    <p>Result: {{count}}</p>
+    <p>Result: {{doubleCount}}</p>
+</div>
+<div class="">
+    <label for="">Add new Item</label>
+    <input type="text" #newItem />
+    <button (click)="addNewItem(newItem.value); newItem.value=''">Add</button>
+</div>

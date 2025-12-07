@@ -1,0 +1,8 @@
+<div class="">
+    <input type="text" [(ngModel)]="parentName" placeholder="Enter parent name" /><br />
+    <input type="number" [(ngModel)]="num" placeholder="Enter num" />
+    <app-child [childName]="parentName" [count]="num" (newValue)="addItem($event)"></app-child>
+    <ul>
+        <li *ngFor="let item of items">{{item}}</li>
+    </ul>
+</div>
