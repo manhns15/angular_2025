@@ -1,0 +1,32 @@
+<div class="">
+    <h3>User form</h3>
+    <div class="">
+        <form action="" #userForm="ngForm" (ngSubmit)="handleSubmit(userForm.value)">
+            <div class="" ngModelGroup="account" #accGr="ngModelGroup">
+                <label for="">Account</label>
+                <input type="text" name="username" placeholder="username" ngModel><br>
+                <input type="text" name="password" placeholder="password" ngModel>
+            </div>
+            <div class="" ngModelGroup="profile" #profileGr="ngModelGroup">
+                <label for="">Profile</label>
+                <input type="text" name="fullname" placeholder="fullname" ngModel>
+                <input type="text" name="email" placeholder="email" ngModel>
+                <input type="text" name="phone" placeholder="phone" ngModel>
+            </div>
+            <div class="">
+                <label for="">Role</label>
+                <select name="role" #role="ngModel" ngModel>
+                    <option value="">Select role</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+            <div class="">
+                <label for="">Active</label>
+                <input type="radio" name="active" [value]="true" ngModel>
+                <input type="radio" name="active" [value]="false" ngModel>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>

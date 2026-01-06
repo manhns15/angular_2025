@@ -1,16 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TemplateDrivenFormComponent } from './template-driven-form/template-driven-form.component';
-import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 
 const routes: Routes = [
   {
-    path: 'tdf',
-    component: TemplateDrivenFormComponent,
+    path: '',
+    loadChildren: () =>
+      import('./template-driven-form/template-driven-form.module').then(
+        (m) => m.TemplateDrivenFormModule
+      ),
   },
   {
-    path: 'rf',
-    component: ReactiveFormComponent,
+    path: '',
+    loadChildren: () =>
+      import('./reactive-form/reactive-form.module').then(
+        (m) => m.ReactiveFormModule
+      ),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./ass-reactive-form/ass-reactive-form.module').then(
+        (m) => m.AssReactiveFormModule
+      ),
   },
 ];
 

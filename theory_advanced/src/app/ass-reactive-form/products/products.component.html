@@ -1,0 +1,52 @@
+<form [formGroup]="productsFrom" (ngSubmit)="onSubmit()">
+
+    <input formControlName="name" placeholder="Product name">
+    <input type="number" formControlName="price" placeholder="Price">
+
+    <select formControlName="category">
+        <option value="">Select category</option>
+        <option value="electronics">Electronics</option>
+        <option value="mobile">Mobile</option>
+    </select>
+
+    <!-- TAGS -->
+    <div formArrayName="tags">
+        <h3>Tags</h3>
+
+        <div *ngFor="let tag of tags.controls; let i = index">
+            <input [formControlName]="i" placeholder="Tag">
+            <button type="button" (click)="removeTag(i)">❌</button>
+        </div>
+
+        <button type="button" (click)="addTag()">➕ Add Tag</button>
+    </div>
+
+    <hr>
+
+    <!-- CONTACTS -->
+    <div formArrayName="contacts">
+        <h3>Contacts</h3>
+
+        <div *ngFor="let contact of contacts.controls; let i = index" [formGroupName]="i">
+            <select formControlName="type">
+                <option value="">Type</option>
+                <option value="support">Support</option>
+                <option value="sales">Sales</option>
+            </select>
+
+            <input formControlName="value" placeholder="Phone / Email">
+
+            <button type="button" (click)="removeContact(i)">❌</button>
+        </div>
+
+        <button type="button" (click)="addContact()">➕ Add Contact</button>
+    </div>
+
+    <br>
+
+    <button [disabled]="productsFrom.invalid">
+        Submit
+    </button>
+
+</form>
+<pre>{{ productsFrom.value | json }}</pre>

@@ -1,0 +1,60 @@
+<form [formGroup]="registerForm" (ngSubmit)="submit()">
+
+    <input formControlName="username" placeholder="Username">
+    <div *ngIf="registerForm.controls.username.invalid && registerForm.controls.username.touched">
+        Username invalid
+    </div>
+
+    <input formControlName="email" placeholder="Email">
+    <div *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched">
+        <small *ngIf="registerForm.controls.email.errors?.['required']">Không được để trống trường này</small>
+        <small *ngIf="registerForm.controls.email.errors?.['email']">Email không hợp lệ</small>
+    </div>
+
+    <input type="password" formControlName="password" placeholder="Password">
+
+    <button [disabled]="registerForm.invalid">Register</button>
+
+</form>
+
+<div class="">
+    <h3>Form Array</h3>
+    <form [formGroup]="contactForm" (ngSubmit)="submitPhone()">
+
+        <label>
+            Name:
+            <input formControlName="name">
+        </label>
+
+        <div formArrayName="phones">
+            <h3>Phone numbers</h3>
+
+            <div *ngFor="let phone of phones.controls; let i = index">
+                <input [formControlName]="i" placeholder="0xxxxxxxxx">
+
+                <button type="button" (click)="removePhone(i)">
+                    ❌
+                </button>
+
+                <div *ngIf="phone.invalid && phone.touched">
+                    Invalid phone number
+                </div>
+            </div>
+        </div>
+
+        <button type="button" (click)="addPhone()">
+            ➕ Add phone
+        </button>
+
+        <br><br>
+
+        <button [disabled]="contactForm.invalid">
+            Submit
+        </button>
+
+    </form>
+
+    <pre>{{ contactForm.value | json }}</pre>
+</div>
+
+<pre>{{ registerForm.value | json }}</pre>

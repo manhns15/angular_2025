@@ -1,0 +1,18 @@
+<div class="">
+    <h2>Group Form</h2>
+    <form action="" #groupForm="ngForm" (ngSubmit)="onSubmit(groupForm.value)">
+        <div class="" ngModelGroup="account" #accountGroup="ngModelGroup">
+            <label for="">UserName</label>
+            <input type="text" name="username" ngModel>
+            <label for="">Password</label>
+            <input type="text" name="psw" ngModel>
+        </div>
+        <div class="" ngModelGroup="profile" #profileGroup="ngModelGroup">
+            <label for="">Full name</label>
+            <input type="text" name="fullname" ngModel>
+            <label for="">Age</label>
+            <input type="text" name="age" ngModel>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>

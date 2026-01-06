@@ -1,0 +1,30 @@
+<div class="">
+    <h3>Login Form</h3>
+    <form action="" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <div class="">
+            <label for="usn">UserName</label>
+            <input type="text" id="usn" name="username" #username="ngModel" [(ngModel)]="model.username" required>
+            <div class="" *ngIf="username.invalid && username.touched">
+                <small *ngIf="username.errors?.['required']">Khong de trong truong nay</small>
+            </div>
+        </div>
+        <div class="">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="model.email" required email>
+            <div class="" *ngIf="email.invalid && email.touched">
+                <small *ngIf="email.errors?.['required']">Khong de trong truong nay</small>
+                <small *ngIf="email.errors?.['email']">Email khong hop le</small>
+            </div>
+        </div>
+        <div class="">
+            <label for="pwd">Password</label>
+            <input type="password" id="pwd" name="password" #password="ngModel" [(ngModel)]="model.password" required
+                minlength="6">
+            <div class="" *ngIf="password.invalid && password.touched">
+                <small *ngIf="password.errors?.['required']">Khong de trong truong nay</small>
+                <small *ngIf="password.errors?.['minlength']">Password it nhat 6 ky tu</small>
+            </div>
+        </div>
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+</div>
