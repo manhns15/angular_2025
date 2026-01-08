@@ -1,0 +1,198 @@
+:host {
+  display: block;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.product-list-page {
+  --ink: #1d1b1f;
+  --muted: #5e5863;
+  --accent: #c44536;
+  --accent-strong: #8f2b20;
+  --card: #fff8f4;
+  --line: rgba(29, 27, 31, 0.12);
+  --shadow: 0 16px 40px rgba(29, 27, 31, 0.12);
+
+  min-height: 100vh;
+  padding: 32px clamp(16px, 3vw, 48px) 64px;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(196, 69, 54, 0.18), transparent 55%),
+    radial-gradient(circle at 90% 15%, rgba(92, 120, 170, 0.15), transparent 50%),
+    linear-gradient(180deg, #fff3ea 0%, #f7f0ea 50%, #f2f6f7 100%);
+  animation: pageFade 500ms ease-out;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(28px, 3.2vw, 40px);
+  letter-spacing: 0.5px;
+}
+
+.page-header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  max-width: 520px;
+}
+
+.page-header a {
+  background: var(--accent);
+  color: #fffaf5;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 10px 24px rgba(196, 69, 54, 0.25);
+}
+
+.page-header a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(196, 69, 54, 0.3);
+  background: var(--accent-strong);
+}
+
+.quick-form {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  box-shadow: var(--shadow);
+  max-width: 920px;
+}
+
+.quick-form .field {
+  display: grid;
+  gap: 8px;
+}
+
+.quick-form .field.full {
+  grid-column: 1 / -1;
+}
+
+.quick-form label {
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.quick-form input,
+.quick-form textarea {
+  width: 100%;
+  border: 1px solid rgba(29, 27, 31, 0.18);
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: #fffdfb;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.quick-form input:focus,
+.quick-form textarea:focus {
+  outline: none;
+  border-color: rgba(196, 69, 54, 0.6);
+  box-shadow: 0 0 0 3px rgba(196, 69, 54, 0.15);
+}
+
+.quick-form textarea {
+  resize: vertical;
+}
+
+.quick-form button {
+  justify-self: start;
+  border: none;
+  background: var(--accent);
+  color: #fffaf5;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  box-shadow: 0 10px 20px rgba(196, 69, 54, 0.25);
+}
+
+.quick-form button:hover {
+  transform: translateY(-2px);
+  background: var(--accent-strong);
+}
+
+.quick-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+  transform: none;
+}
+
+.status {
+  margin: 20px 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.status.error {
+  color: #7a1e16;
+  background: rgba(255, 230, 226, 0.8);
+  border-color: rgba(196, 69, 54, 0.3);
+}
+
+.empty-state {
+  margin: 32px 0;
+  padding: 28px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  color: var(--muted);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    align-items: flex-start;
+  }
+
+  .page-header a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .quick-form {
+    padding: 16px;
+  }
+}

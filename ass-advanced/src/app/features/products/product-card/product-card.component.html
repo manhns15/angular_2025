@@ -1,0 +1,18 @@
+<article class="product-card">
+  <div class="thumb">
+    <img
+      *ngIf="product.images?.length"
+      [src]="product.images?.[0]"
+      [alt]="product.title"
+    />
+  </div>
+  <div class="info">
+    <h3>{{ product.title }}</h3>
+    <p class="price">{{ product.price | currency:'USD':'symbol':'1.0-0' }}</p>
+    <p class="desc">{{ product.description }}</p>
+    <div class="actions">
+      <button type="button" class="edit-btn" (click)="onEdit()">Sua</button>
+      <button type="button" class="delete-btn" (click)="onDelete()">Xoa</button>
+    </div>
+  </div>
+</article>

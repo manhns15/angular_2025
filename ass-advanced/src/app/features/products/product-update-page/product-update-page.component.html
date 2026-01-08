@@ -1,0 +1,58 @@
+<section class="product-update-page">
+  <header class="page-header">
+    <div>
+      <h1>Cap nhat san pham</h1>
+      <p>Dieu chinh thong tin san pham theo nhu cau.</p>
+    </div>
+    <a routerLink="/products">Quay lai danh sach</a>
+  </header>
+
+  <div class="status" *ngIf="isLoadingProduct">Dang tai du lieu...</div>
+  <div class="status error" *ngIf="notFound">Khong tim thay san pham.</div>
+
+  <form
+    class="product-form"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    *ngIf="!isLoadingProduct && !notFound"
+  >
+    <label>
+      <span>Ten san pham</span>
+      <input type="text" formControlName="title" required />
+    </label>
+
+    <label>
+      <span>Gia (USD)</span>
+      <input type="number" formControlName="price" min="0" required />
+    </label>
+
+    <label>
+      <span>Danh muc</span>
+      <select formControlName="categoryId">
+        <option [ngValue]="null">Chon danh muc</option>
+        <option *ngFor="let category of categories" [ngValue]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </label>
+
+    <label class="full">
+      <span>Mo ta</span>
+      <textarea formControlName="description" rows="4"></textarea>
+    </label>
+
+    <label class="full">
+      <span>Hinh anh (URL)</span>
+      <input type="text" formControlName="image" />
+    </label>
+
+    <div class="status" *ngIf="(loading$ | async)">Dang cap nhat...</div>
+    <div class="status error" *ngIf="(error$ | async) as error">
+      Loi: {{ error }}
+    </div>
+
+    <button type="submit" [disabled]="form.invalid || (loading$ | async)">
+      Cap nhat san pham
+    </button>
+  </form>
+</section>

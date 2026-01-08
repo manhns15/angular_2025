@@ -1,0 +1,41 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Electronics",
+      "image": "https://placehold.co/600x400?text=Electronics"
+    },
+    {
+      "id": "2",
+      "name": "Home & Living",
+      "image": "https://placehold.co/600x400?text=Home+%26+Living"
+    },
+    {
+      "id": "3",
+      "name": "Fashion",
+      "image": "https://placehold.co/600x400?text=Fashion"
+    }
+  ],
+  "products": [
+    {
+      "title": "Minimal Backpack",
+      "price": 58,
+      "description": "Water-resistant backpack with padded laptop compartment.",
+      "images": [
+        "https://placehold.co/640x480?text=Backpack"
+      ],
+      "categoryId": "1",
+      "id": "5"
+    },
+    {
+      "title": "Everyday Sneakers",
+      "price": 92,
+      "description": "Lightweight sneakers with breathable mesh upper.",
+      "images": [
+        "https://placehold.co/640x480?text=Sneakers"
+      ],
+      "categoryId": "2",
+      "id": "6"
+    }
+  ]
+}

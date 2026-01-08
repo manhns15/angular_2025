@@ -1,0 +1,50 @@
+<section class="product-create-page">
+    <header class="page-header">
+        <div>
+            <h1>Tao san pham moi</h1>
+            <p>Nhap thong tin co ban de them san pham vao he thong.</p>
+        </div>
+        <a routerLink="/products">Quay lai danh sach</a>
+    </header>
+
+    <form class="product-form" [formGroup]="form" (ngSubmit)="submit()">
+        <label>
+            <span>Ten san pham</span>
+            <input type="text" formControlName="title" placeholder="Vi du: Wireless Headphones" required />
+        </label>
+
+        <label>
+            <span>Gia (USD)</span>
+            <input type="number" formControlName="price" min="0" placeholder="120" required />
+        </label>
+
+        <label>
+            <span>Danh muc</span>
+            <select formControlName="categoryId">
+                <option [ngValue]="null">Chon danh muc</option>
+                <option *ngFor="let category of categories" [ngValue]="category.id">
+                    {{ category.name }}
+                </option>
+            </select>
+        </label>
+
+        <label class="full">
+            <span>Mo ta</span>
+            <textarea formControlName="description" rows="4" placeholder="Mo ta ngan gon ve san pham"></textarea>
+        </label>
+
+        <label class="full">
+            <span>Hinh anh (URL)</span>
+            <input type="text" formControlName="image" placeholder="https://..." />
+        </label>
+
+        <div class="status" *ngIf="(loading$ | async)">Dang tao san pham...</div>
+        <div class="status error" *ngIf="(error$ | async) as error">
+            Loi: {{ error }}
+        </div>
+
+    <button type="submit" [disabled]="form.invalid || (loading$ | async)">
+      Tao san pham
+    </button>
+  </form>
+</section>
