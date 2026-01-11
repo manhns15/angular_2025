@@ -1,0 +1,101 @@
+<section class="feed-page">
+  <div class="feed-hero">
+    <div class="hero-copy">
+      <div class="hero-tag">Feed / DummyJSON</div>
+      <h1>
+        Bảng tin
+        <span>nhiều lớp</span>
+      </h1>
+      <p>
+        Tập trung vào bài viết mới nhất, nhịp độ nhanh, và thông tin rõ ràng.
+        Tùy chỉnh trải nghiệm theo nhu cầu của bạn.
+      </p>
+      <div class="hero-actions">
+        <button class="primary">Tạo bài viết</button>
+        <button class="ghost">Lọc nhanh</button>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <strong>128</strong>
+          <span>Bài viết</span>
+        </div>
+        <div>
+          <strong>32</strong>
+          <span>Tác giả</span>
+        </div>
+        <div>
+          <strong>7</strong>
+          <span>Chủ đề</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <div class="panel-header">
+        <span>Trending</span>
+        <button class="chip">Hôm nay</button>
+      </div>
+      <div class="panel-list">
+        <article class="panel-card">
+          <h3>Thiết kế hệ thống auth gọn gàng</h3>
+          <p>Token, interceptor và guard phối hợp như thế nào.</p>
+          <div class="panel-meta">5 phút đọc</div>
+        </article>
+        <article class="panel-card">
+          <h3>RxJS: giữ state không gọi lại API</h3>
+          <p>BehaviorSubject giúp UI tự cập nhật.</p>
+          <div class="panel-meta">3 phút đọc</div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="feed-body">
+    <aside class="feed-filters">
+      <h4>Bộ lọc</h4>
+      <div class="filter-group">
+        <span>Chủ đề</span>
+        <button class="chip active">Tất cả</button>
+        <button class="chip">Frontend</button>
+        <button class="chip">Backend</button>
+        <button class="chip">DevOps</button>
+      </div>
+      <div class="filter-group">
+        <span>Thời gian</span>
+        <button class="chip">24 giờ</button>
+        <button class="chip">7 ngày</button>
+        <button class="chip">30 ngày</button>
+      </div>
+    </aside>
+
+    <main class="feed-list">
+      <article class="feed-card" *ngFor="let post of posts | async">
+        <div class="card-tag" *ngFor="let tag of post.tag">item</div>
+        <h3>{{post.title}}</h3>
+        <p>
+          {{post.body}}
+        </p>
+        <div class="card-footer">
+          <span>Mai Anh</span>
+          <span>8 phút đọc</span>
+        </div>
+        <div class="card-metrics">
+          <span class="metric">👍 {{post.reactions.likes}}</span>
+          <span class="metric">💬 24</span>
+          <span class="metric">👁️ {{post.views}}</span>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <div class="feed-pagination">
+    <nz-pagination
+      [nzTotal]="(total | async) ?? 0"
+      [nzPageIndex]="(page | async) ?? 1"
+      [nzPageSize]="(pageSize | async) ?? 6"
+      [nzShowSizeChanger]="false"
+      (nzPageIndexChange)="handlePageChange($event)"
+    ></nz-pagination>
+  </div>
+</section>

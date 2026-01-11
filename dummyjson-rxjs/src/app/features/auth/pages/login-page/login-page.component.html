@@ -1,0 +1,59 @@
+<div class="auth-page">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="grid-glow"></div>
+
+  <div class="auth-card">
+    <section class="auth-brand">
+      <div class="brand-badge">DJ</div>
+      <h1>
+        Đăng nhập để
+        <span>quản lý feed</span>
+      </h1>
+      <p>
+        Kết nối nhanh với DummyJSON API. Giữ mọi thứ gọn gàng, rõ ràng,
+        và có thể mở rộng.
+      </p>
+      <div class="brand-points">
+        <div>+ Token tự động gắn vào request</div>
+        <div>+ State user cập nhật theo stream</div>
+        <div>+ username: emilys, password: emilyspass</div>
+      </div>
+    </section>
+
+    <section class="auth-form">
+      <div class="form-header">
+        <h2>Welcome back</h2>
+        <span>Login với tài khoản demo</span>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+        <label class="field">
+          <span>Username</span>
+          <input type="text" name="username" placeholder="username" formControlName="username" />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" placeholder="password" formControlName="password" />
+        </label>
+
+        <div class="row">
+          <label class="checkbox">
+            <input type="checkbox" checked />
+            <span>Remember me</span>
+          </label>
+          <a class="link" href="#">Quên mật khẩu?</a>
+        </div>
+
+        <button class="primary-btn" type="submit">Đăng nhập</button>
+        <button class="ghost-btn" type="button">Dùng tài khoản demo</button>
+      </form>
+
+      <div class="form-footer">
+        Chưa có tài khoản?
+        <a class="link" href="#">Tạo mới</a>
+      </div>
+    </section>
+  </div>
+</div>
