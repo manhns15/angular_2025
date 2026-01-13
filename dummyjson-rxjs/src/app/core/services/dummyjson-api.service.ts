@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse } from '../models/login.model';
 import { Post } from '../models/post.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,8 +44,8 @@ export class DummyjsonApiService {
       `${this.baseUrl}/posts/${postId}/comments`
     );
   }
-  getUser(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/users/${userId}`);
+  getUser(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/users/${userId}`);
   }
   getUserPosts(userId: number): Observable<{ posts: Post[] }> {
     return this.http.get<{ posts: Post[] }>(

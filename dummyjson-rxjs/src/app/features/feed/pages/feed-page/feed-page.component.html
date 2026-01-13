@@ -76,7 +76,9 @@
           {{post.body}}
         </p>
         <div class="card-footer">
-          <span>Mai Anh</span>
+          <span>
+            {{ post.user ? (post.user.firstName + ' ' + post.user.lastName) : 'Unknown' }}
+          </span>
           <span>8 phút đọc</span>
         </div>
         <div class="card-metrics">

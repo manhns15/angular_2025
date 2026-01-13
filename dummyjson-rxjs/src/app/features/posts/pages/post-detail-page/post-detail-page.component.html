@@ -1,1 +1,142 @@
-<p>post-detail-page works!</p>
+<section class="post-detail">
+  <div class="post-detail__backdrop"></div>
+
+  <header class="post-hero">
+    <div class="post-hero__meta">
+      <span class="post-hero__badge">Post Detail</span>
+      <div class="post-hero__tags">
+        <span class="tag">frontend</span>
+        <span class="tag">rxjs</span>
+        <span class="tag">angular</span>
+      </div>
+      <h1>Thiết kế luồng dữ liệu rõ ràng cho từng bài viết</h1>
+      <p>
+        Chuyển đổi từ danh sách feed sang chi tiết bài viết mà không làm mất ngữ
+        cảnh. Tập trung vào bố cục, nhịp đọc và dữ liệu liên quan.
+      </p>
+      <div class="post-hero__stats">
+        <div>
+          <strong>8</strong>
+          <span>Phut doc</span>
+        </div>
+        <div>
+          <strong>1.2k</strong>
+          <span>Luot xem</span>
+        </div>
+        <div>
+          <strong>36</strong>
+          <span>Binh luan</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="post-hero__card">
+      <div class="author">
+        <div class="author__avatar">MN</div>
+        <div>
+          <div class="author__name">Mai Nguyen</div>
+          <div class="author__role">Product Designer</div>
+        </div>
+      </div>
+      <div class="author__actions">
+        <button class="button primary">Theo doi</button>
+        <button class="button ghost">Chia se</button>
+      </div>
+      <div class="author__note">
+        Bai viet tap trung vao cach gop thong tin user vao tung post de UI su
+        dung nhanh.
+      </div>
+    </aside>
+  </header>
+
+  <main class="post-content">
+    <article class="post-article">
+      <div class="lead">
+        <span class="lead__label">Tom tat</span>
+        <p>
+          Dung stream de quan ly trang thai bai viet va thong tin tac gia. Uu tien
+          cac buoc xu ly ro rang, de doc, va de test.
+        </p>
+      </div>
+
+      <h2>1. Khoi tao du lieu</h2>
+      <p>
+        Bat dau tu API danh sach bai viet. Danh sach nay chua userId, day la khoa
+        de ket noi voi thong tin tac gia.
+      </p>
+
+      <div class="callout">
+        <div class="callout__title">Meo nho</div>
+        <p>
+          Chi lay userId duy nhat de tranh goi API lap lai. Sau do dung Map de
+          tra cuu nhanh.
+        </p>
+      </div>
+
+      <h2>2. Gan thong tin user vao post</h2>
+      <p>
+        Khi co danh sach user, gan du lieu vao tung post bang cach map theo
+        userId. UI se chi can truy cap post.user de hien thi tac gia.
+      </p>
+
+      <div class="divider"></div>
+
+      <section class="post-links">
+        <h3>Bai viet lien quan</h3>
+        <div class="post-links__grid">
+          <article>
+            <div class="chip">State</div>
+            <h4>Giu trang thai danh sach feed don gian</h4>
+            <span>6 phut doc</span>
+          </article>
+          <article>
+            <div class="chip">UI</div>
+            <h4>Thiet ke detail page cho dung nhac doc</h4>
+            <span>4 phut doc</span>
+          </article>
+          <article>
+            <div class="chip">API</div>
+            <h4>To chuc service goi api theo tung module</h4>
+            <span>7 phut doc</span>
+          </article>
+        </div>
+      </section>
+    </article>
+
+    <aside class="post-side">
+      <div class="side-card">
+        <h4>Chi so</h4>
+        <div class="side-metric">
+          <span>Thoi gian doc</span>
+          <strong>08:20</strong>
+        </div>
+        <div class="side-metric">
+          <span>Do kho</span>
+          <strong>Trung binh</strong>
+        </div>
+        <div class="side-metric">
+          <span>Cap do</span>
+          <strong>Intermediate</strong>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <h4>Binh luan gan day</h4>
+        <ul class="comment-list">
+          <li>
+            <strong>Thanh</strong>
+            <span>Stream hoat dong muot, can them cache.</span>
+          </li>
+          <li>
+            <strong>Phuong</strong>
+            <span>Y tuong Map de gan user rat ro rang.</span>
+          </li>
+          <li>
+            <strong>Long</strong>
+            <span>Muon co them them phan bat dong bo.</span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+</section>
