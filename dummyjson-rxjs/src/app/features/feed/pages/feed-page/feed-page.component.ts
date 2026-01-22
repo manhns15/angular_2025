@@ -21,4 +21,12 @@ export class FeedPageComponent implements OnInit {
   handlePageChange(nextPage: number): void {
     this.feedStoreService.loadPage(nextPage);
   }
+
+  loadUser(userId: number): void {
+    this.feedStoreService.loadUser(userId);
+  }
+
+  trackByPostId(_: number, post: { id: number }): number {
+    return post.id;
+  }
 }

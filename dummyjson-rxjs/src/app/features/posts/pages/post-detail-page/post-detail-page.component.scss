@@ -240,6 +240,26 @@
   gap: 16px;
 }
 
+.comment-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.comment-form textarea {
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  padding: 12px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.comment-note {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .post-links__grid article {
   background: #fff;
   padding: 16px 18px;
@@ -299,6 +319,21 @@
 .comment-list strong {
   display: block;
   color: var(--deep);
+}
+
+.comment-list textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 @keyframes fadeUp {

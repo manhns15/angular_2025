@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse } from '../models/login.model';
+import { Comment } from '../models/comment.model';
 import { Post } from '../models/post.model';
 import { User } from '../models/user.model';
 
@@ -39,10 +40,24 @@ export class DummyjsonApiService {
       `${this.baseUrl}/posts/search?q=${q}`
     );
   }
-  getPostComments(postId: number): Observable<{ comments: any[] }> {
-    return this.http.get<{ comments: any[] }>(
+  getPostComments(postId: number): Observable<{ comments: Comment[] }> {
+    return this.http.get<{ comments: Comment[] }>(
       `${this.baseUrl}/posts/${postId}/comments`
     );
+  }
+  getAuthMe(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/auth/me`);
+  }
+  postComment(
+    postId: number,
+    userId: number,
+    body: string
+  ): Observable<Comment> {
+    return this.http.post<Comment>(`${this.baseUrl}/comments/add`, {
+      body,
+      postId,
+      userId,
+    });
   }
   getUser(userId: number): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/users/${userId}`);

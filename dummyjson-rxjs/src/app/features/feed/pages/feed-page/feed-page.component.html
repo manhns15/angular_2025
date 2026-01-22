@@ -16,7 +16,7 @@
       </div>
       <div class="hero-stats">
         <div>
-          <strong>128</strong>
+          <strong>{{total | async}}</strong>
           <span>Bài viết</span>
         </div>
         <div>
@@ -69,14 +69,14 @@
     </aside>
 
     <main class="feed-list">
-      <article class="feed-card" *ngFor="let post of posts | async">
+      <article class="feed-card" *ngFor="let post of posts | async; trackBy: trackByPostId">
         <div class="card-tag" *ngFor="let tag of post.tag">item</div>
-        <h3>{{post.title}}</h3>
+        <a [routerLink]="['/post', post.id]">{{post.title}}</a>
         <p>
           {{post.body}}
         </p>
         <div class="card-footer">
-          <span>
+          <span (mouseenter)="loadUser(post.userId)">
             {{ post.user ? (post.user.firstName + ' ' + post.user.lastName) : 'Unknown' }}
           </span>
           <span>8 phút đọc</span>
@@ -92,12 +92,8 @@
   </div>
 
   <div class="feed-pagination">
-    <nz-pagination
-      [nzTotal]="(total | async) ?? 0"
-      [nzPageIndex]="(page | async) ?? 1"
-      [nzPageSize]="(pageSize | async) ?? 6"
-      [nzShowSizeChanger]="false"
-      (nzPageIndexChange)="handlePageChange($event)"
-    ></nz-pagination>
+    <nz-pagination [nzTotal]="(total | async) ?? 0" [nzPageIndex]="(page | async) ?? 1"
+      [nzPageSize]="(pageSize | async) ?? 6" [nzShowSizeChanger]="false"
+      (nzPageIndexChange)="handlePageChange($event)"></nz-pagination>
   </div>
 </section>

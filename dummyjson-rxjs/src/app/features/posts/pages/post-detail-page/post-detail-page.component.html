@@ -1,30 +1,25 @@
-<section class="post-detail">
+<section class="post-detail" *ngIf="postDetail | async as detail">
   <div class="post-detail__backdrop"></div>
 
   <header class="post-hero">
     <div class="post-hero__meta">
       <span class="post-hero__badge">Post Detail</span>
       <div class="post-hero__tags">
-        <span class="tag">frontend</span>
-        <span class="tag">rxjs</span>
-        <span class="tag">angular</span>
+        <span class="tag" *ngFor="let tag of detail.post.tag">{{ tag }}</span>
       </div>
-      <h1>Thiết kế luồng dữ liệu rõ ràng cho từng bài viết</h1>
-      <p>
-        Chuyển đổi từ danh sách feed sang chi tiết bài viết mà không làm mất ngữ
-        cảnh. Tập trung vào bố cục, nhịp đọc và dữ liệu liên quan.
-      </p>
+      <h1>{{ detail.post.title }}</h1>
+      <p>{{ detail.post.body }}</p>
       <div class="post-hero__stats">
         <div>
-          <strong>8</strong>
+          <strong>{{ detail.post.reactions.likes }}</strong>
           <span>Phut doc</span>
         </div>
         <div>
-          <strong>1.2k</strong>
+          <strong>{{ detail.post.views }}</strong>
           <span>Luot xem</span>
         </div>
         <div>
-          <strong>36</strong>
+          <strong>{{ detail.comments.length }}</strong>
           <span>Binh luan</span>
         </div>
       </div>
@@ -32,10 +27,14 @@
 
     <aside class="post-hero__card">
       <div class="author">
-        <div class="author__avatar">MN</div>
+        <div class="author__avatar">
+          {{ detail.user.firstName.charAt(0) }}{{ detail.user.lastName.charAt(0) }}
+        </div>
         <div>
-          <div class="author__name">Mai Nguyen</div>
-          <div class="author__role">Product Designer</div>
+          <div class="author__name">
+            {{ detail.user.firstName }} {{ detail.user.lastName }}
+          </div>
+          <div class="author__role">@{{ detail.user.username }}</div>
         </div>
       </div>
       <div class="author__actions">
@@ -54,15 +53,15 @@
       <div class="lead">
         <span class="lead__label">Tom tat</span>
         <p>
-          Dung stream de quan ly trang thai bai viet va thong tin tac gia. Uu tien
-          cac buoc xu ly ro rang, de doc, va de test.
+          Bai viet nay duoc load tu postId tren URL, sau do gan thong tin user va
+          comments de UI hien thi day du.
         </p>
       </div>
 
       <h2>1. Khoi tao du lieu</h2>
       <p>
-        Bat dau tu API danh sach bai viet. Danh sach nay chua userId, day la khoa
-        de ket noi voi thong tin tac gia.
+        Gọi API post detail theo id, sau do gọi them user theo userId va comments
+        theo postId.
       </p>
 
       <div class="callout">
@@ -75,31 +74,18 @@
 
       <h2>2. Gan thong tin user vao post</h2>
       <p>
-        Khi co danh sach user, gan du lieu vao tung post bang cach map theo
-        userId. UI se chi can truy cap post.user de hien thi tac gia.
+        Sau khi co user va comments, UI chi can truy cap detail.user va
+        detail.comments de hien thi.
       </p>
 
       <div class="divider"></div>
 
       <section class="post-links">
-        <h3>Bai viet lien quan</h3>
-        <div class="post-links__grid">
-          <article>
-            <div class="chip">State</div>
-            <h4>Giu trang thai danh sach feed don gian</h4>
-            <span>6 phut doc</span>
-          </article>
-          <article>
-            <div class="chip">UI</div>
-            <h4>Thiet ke detail page cho dung nhac doc</h4>
-            <span>4 phut doc</span>
-          </article>
-          <article>
-            <div class="chip">API</div>
-            <h4>To chuc service goi api theo tung module</h4>
-            <span>7 phut doc</span>
-          </article>
-        </div>
+        <h3>Comment</h3>
+        <form class="comment-form" [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+          <textarea rows="3" placeholder="Viet comment..." formControlName="body"></textarea>
+          <button class="button primary" type="submit">Gui comment</button>
+        </form>
       </section>
     </article>
 
@@ -123,17 +109,9 @@
       <div class="side-card">
         <h4>Binh luan gan day</h4>
         <ul class="comment-list">
-          <li>
-            <strong>Thanh</strong>
-            <span>Stream hoat dong muot, can them cache.</span>
-          </li>
-          <li>
-            <strong>Phuong</strong>
-            <span>Y tuong Map de gan user rat ro rang.</span>
-          </li>
-          <li>
-            <strong>Long</strong>
-            <span>Muon co them them phan bat dong bo.</span>
+          <li *ngFor="let comment of detail.comments">
+            <strong>@{{ comment.user.username }}</strong>
+            <span>{{ comment.body }}</span>
           </li>
         </ul>
       </div>

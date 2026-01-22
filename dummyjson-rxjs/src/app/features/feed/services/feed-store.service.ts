@@ -14,6 +14,8 @@ interface FeedPost extends Post {
 export class FeedStoreService {
   constructor(private dummyjsonApiService: DummyjsonApiService) {}
 
+  private readonly userCache = new Map<number, User>();
+
   private readonly feedsSubject = new BehaviorSubject<FeedPost[]>([]);
   private readonly totalSubject = new BehaviorSubject<number>(0);
   private readonly pageSubject = new BehaviorSubject<number>(1);
@@ -32,6 +34,8 @@ export class FeedStoreService {
     // Tính tham số phân trang
     const pageSize = this.pageSizeSubject.getValue();
     const skip = (page - 1) * pageSize;
+    const timeLabel = `feed:loadPage:${page}`;
+    console.time(timeLabel);
 
     // Bật trạng thái loading trước khi gọi API
     this.loadingSubject.next(true);
@@ -46,17 +50,35 @@ export class FeedStoreService {
           const userIds = Array.from(
             new Set(feeds.posts.map((post) => post.userId))
           );
+          console.log('feed:userIds', userIds.length, userIds);
 
-          if (userIds.length === 0) {
+          const cachedUsers: User[] = [];
+          const missingUserIds: number[] = [];
+
+          userIds.forEach((userId) => {
+            const cached = this.userCache.get(userId);
+            if (cached) {
+              cachedUsers.push(cached);
+            } else {
+              missingUserIds.push(userId);
+            }
+          });
+
+          if (missingUserIds.length === 0) {
             // Không có userId thì trả luôn feeds
-            return of({ feeds, users: [] });
+            return of({ feeds, users: cachedUsers });
           }
 
           // Gọi API user song song theo từng userId
           // forkJoin: chạy tất cả request user song song và đợi tất cả xong mới emit
           return forkJoin(
-            userIds.map((userId) => this.dummyjsonApiService.getUser(userId))
-          ).pipe(map((users) => ({ feeds, users })));
+            missingUserIds.map((userId) => this.dummyjsonApiService.getUser(userId))
+          ).pipe(
+            map((users) => {
+              users.forEach((user) => this.userCache.set(user.id, user));
+              return { feeds, users: [...cachedUsers, ...users] };
+            })
+          );
         }),
         map(({ feeds, users }) => {
           // Tạo map để gắn nhanh user vào từng post
@@ -82,10 +104,32 @@ export class FeedStoreService {
           this.feedsSubject.next(feeds.posts);
           this.totalSubject.next(feeds.total);
           this.pageSubject.next(page);
+          console.timeEnd(timeLabel);
         },
         error: (err) => {
           console.log('error', err);
+          console.timeEnd(timeLabel);
         },
       });
+  }
+
+  loadUser(userId: number): void {
+    if (this.userCache.has(userId)) {
+      return;
+    }
+
+    this.dummyjsonApiService.getUser(userId).subscribe({
+      next: (user) => {
+        this.userCache.set(user.id, user);
+        const feeds = this.feedsSubject.getValue();
+        const posts = feeds.map((post) =>
+          post.userId === user.id ? { ...post, user } : post
+        );
+        this.feedsSubject.next(posts);
+      },
+      error: (err) => {
+        console.log('loadUser error', err);
+      },
+    });
   }
 }

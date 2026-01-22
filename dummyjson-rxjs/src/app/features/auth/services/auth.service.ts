@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { DummyjsonApiService } from '../../../core/services/dummyjson-api.service';
 import { TokenService } from '../../../core/services/token.service';
 import { LoginRequest, LoginResponse } from '../../../core/models/login.model';
@@ -30,5 +30,26 @@ export class AuthService {
   logout(): void {
     this.tokenService.clearToken();
     this.authStore.clearUser();
+  }
+
+  // Khôi phục user khi đã có token (tránh bị null sau refresh)
+  restoreUserFromToken(): Observable<LoginResponse | null> {
+    const accessToken = this.tokenService.getToken();
+    if (!accessToken) {
+      return of(null);
+    }
+
+    return this.api.getAuthMe().pipe(
+      map((user) => ({
+        ...user,
+        accessToken,
+      })),
+      tap((user) => this.authStore.setUser(user)),
+      catchError(() => {
+        this.tokenService.clearToken();
+        this.authStore.clearUser();
+        return of(null);
+      })
+    );
   }
 }
