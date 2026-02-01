@@ -1,5 +1,5 @@
-import { FeedStoreService } from '../../services/feed-store.service';
 import { Component, OnInit } from '@angular/core';
+import { FeedStoreService } from '../../services/feed-store.service';
 
 @Component({
   selector: 'app-feed-page',
@@ -8,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class FeedPageComponent implements OnInit {
-  constructor(private feedStoreService: FeedStoreService) {}
   readonly posts = this.feedStoreService.$feeds;
   readonly total = this.feedStoreService.$total;
   readonly page = this.feedStoreService.$page;
   readonly pageSize = this.feedStoreService.$pageSize;
+
+  constructor(private feedStoreService: FeedStoreService) {}
 
   ngOnInit(): void {
     this.feedStoreService.loadPage(1);
