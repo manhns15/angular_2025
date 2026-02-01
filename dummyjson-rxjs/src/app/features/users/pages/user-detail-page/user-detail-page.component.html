@@ -1,1 +1,53 @@
-<p>user-detail-page works!</p>
+<div class="page-container">
+    <div class="loading-state" *ngIf="loading$ | async">
+        <div class="spinner"></div>
+        <p>Loading user profile...</p>
+    </div>
+
+    <div class="content-wrapper" *ngIf="(loading$ | async) === false">
+        <button class="back-btn" routerLink="/feed">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Feed
+        </button>
+
+        <div class="user-card" *ngIf="user$ | async as user; else noUser">
+            <div class="card-header">
+                <div class="avatar-wrapper">
+                    <img [src]="user.image" [alt]="user.username" class="avatar">
+                </div>
+                <div class="header-info">
+                    <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+                    <span class="username">@{{ user.username }}</span>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="section-title">Personal Information</div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Email</span>
+                        <span class="value">{{ user.email }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Gender</span>
+                        <span class="value">{{ user.gender | titlecase }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">User ID</span>
+                        <span class="value">#{{ user.id }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noUser>
+            <div class="error-state">
+                <p>User not found.</p>
+            </div>
+        </ng-template>
+    </div>
+</div>
