@@ -1,0 +1,29 @@
+<h2>Đội hình Manchester United</h2>
+
+<div style="display: flex; gap: 20px;">
+    <div>
+        <h3>Sử dụng Pure Pipe</h3>
+        <ul *ngFor="let p of players | pureFilter">
+            <li>{{ p.name }}</li>
+        </ul>
+    </div>
+
+    <div>
+        <h3>Sử dụng Impure Pipe</h3>
+        <ul *ngFor="let p of players | impureFilter">
+            <li>{{ p.name }}</li>
+        </ul>
+    </div>
+
+
+</div>
+
+<hr>
+<button (click)="addByPush()">Thêm bằng Push (Cùng Reference)</button>
+<button (click)="addBySpread()">Thêm bằng Spread (Mới Reference)</button>
+<button (click)="dummyClick()">Chỉ Click (Không làm gì cả)</button>
+
+<div>
+    <p>{{ check()}}</p>
+    <button (click)="dummyClick()">click</button>
+</div>
