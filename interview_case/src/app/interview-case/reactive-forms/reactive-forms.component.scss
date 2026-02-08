@@ -1,0 +1,52 @@
+.reactive-forms-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.info-box {
+  background: #f0f8ff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.demo-controls {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-warning {
+  background: #ffc107;
+  color: #000;
+}
+
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.status {
+  padding: 15px;
+  border-radius: 4px;
+  background: #d4edda;
+  margin: 20px 0;
+}
+
+.status.unsaved {
+  background: #fff3cd;
+}
+
+.instruction {
+  font-style: italic;
+  color: #666;
+}

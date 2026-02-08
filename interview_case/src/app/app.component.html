@@ -6,11 +6,23 @@
         <h1>Angular Interview Case</h1>
       </div>
       <nav class="main-nav">
+        <a routerLink="/login" routerLinkActive="active" class="nav-link">
+          🔐 Login
+        </a>
         <a routerLink="/pipe" routerLinkActive="active" class="nav-link">
-          Pipes Component
+          Pipes
         </a>
         <a routerLink="/reactive-forms" routerLinkActive="active" class="nav-link">
-          Reactive Forms
+          Forms (CanDeactivate)
+        </a>
+        <a routerLink="/share-replay" routerLinkActive="active" class="nav-link">
+          Share Replay
+        </a>
+        <a routerLink="/protected" routerLinkActive="active" class="nav-link">
+          🔒 Protected (CanActivate)
+        </a>
+        <a routerLink="/admin" routerLinkActive="active" class="nav-link">
+          👨‍💼 Admin (CanActivateChild)
         </a>
       </nav>
     </div>
@@ -23,6 +35,6 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <p>&copy; 2026 Angular Interview Case Study</p>
+    <p>&copy; 2026 Angular Interview Case Study - All Guards Demo</p>
   </footer>
 </div>

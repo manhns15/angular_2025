@@ -1,1 +1,26 @@
-<p>reactive-forms works!</p>
+<div class="reactive-forms-container">
+    <h2>📝 Reactive Forms (với UnsavedChangesGuard)</h2>
+
+    <div class="info-box">
+        <h3>UnsavedChangesGuard (CanDeactivate) Demo</h3>
+        <p>Guard này sẽ cảnh báo bạn khi rời khỏi trang có thay đổi chưa lưu.</p>
+    </div>
+
+    <div class="demo-controls">
+        <button (click)="markAsChanged()" class="btn-warning">
+            ✏️ Tạo thay đổi chưa lưu
+        </button>
+        <button (click)="save()" class="btn-success">
+            💾 Lưu thay đổi
+        </button>
+    </div>
+
+    <div class="status" [class.unsaved]="hasUnsavedChanges">
+        <strong>Trạng thái:</strong>
+        {{ hasUnsavedChanges ? '⚠️ Có thay đổi chưa lưu' : '✅ Đã lưu' }}
+    </div>
+
+    <p class="instruction">
+        Thử click "Tạo thay đổi chưa lưu" rồi chuyển sang tab khác để thấy cảnh báo!
+    </p>
+</div>
