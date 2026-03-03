@@ -1,0 +1,45 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "MacBook Air M3",
+      "price": 32990000,
+      "category": "Laptop",
+      "stock": 20,
+      "description": "MacBook Air 13 inch chip M3"
+    },
+    {
+      "id": "2",
+      "name": "AirPods Pro",
+      "price": 6490000,
+      "category": "Phụ kiện",
+      "stock": 100,
+      "description": "Apple AirPods Pro thế hệ 2"
+    },
+    {
+      "id": "3",
+      "name": "Samsung Galaxy S24",
+      "price": 22990000,
+      "category": "Điện thoại",
+      "stock": 35,
+      "description": "Samsung Galaxy S24 256GB"
+    },
+    {
+      "id": "4",
+      "name": "iPad Pro M4",
+      "price": 28990000,
+      "category": "Tablet",
+      "stock": 15,
+      "description": "iPad Pro 11 inch chip M4"
+    },
+    {
+      "id": "e30c",
+      "name": "ManhNS",
+      "price": 3330123,
+      "stock": 3,
+      "category": "Laptop",
+      "description": "333"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

@@ -1,0 +1,67 @@
+<div class="page">
+
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading$ | async">⏳ Đang tải...</div>
+
+    <!-- Error -->
+    <div class="alert alert-error" *ngIf="error$ | async as errorMsg">
+        ⚠️ {{ errorMsg }}
+    </div>
+
+    <!-- Content: chỉ hiển thị khi product có data và không đang loading -->
+    <ng-container *ngIf="(product$ | async) as product">
+        <ng-container *ngIf="!(loading$ | async)">
+
+            <div class="back-nav">
+                <a routerLink="/products">← Quay lại danh sách</a>
+            </div>
+
+            <div class="detail-card">
+
+                <!-- Left -->
+                <div class="detail-left">
+                    <div class="product-icon">📦</div>
+                    <span class="badge">{{ product.category }}</span>
+                    <div class="stock" [class.low]="product.stock! < 20">
+                        Tồn kho: <strong>{{ product.stock }}</strong>
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="detail-right">
+                    <h1>{{ product.name }}</h1>
+                    <div class="price">{{ product.price | number }} đ</div>
+                    <p class="description">{{ product.description }}</p>
+
+                    <div class="info-table">
+                        <div class="info-row">
+                            <span>Mã sản phẩm</span>
+                            <span>#{{ product.id }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Danh mục</span>
+                            <span>{{ product.category }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Tồn kho</span>
+                            <span>{{ product.stock }} cái</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Giá bán</span>
+                            <span>{{ product.price | number }} đ</span>
+                        </div>
+                    </div>
+
+                    <div class="action-group">
+                        <a [routerLink]="['/products', product.id, 'edit']" class="btn btn-warning">
+                            ✏️ Chỉnh sửa
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </ng-container>
+    </ng-container>
+
+</div>

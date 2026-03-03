@@ -1,0 +1,64 @@
+<div class="page">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div>
+            <h1>📦 Danh sách sản phẩm</h1>
+            <p>Quản lý toàn bộ sản phẩm trong hệ thống</p>
+        </div>
+        <a routerLink="/products/create" class="btn btn-primary">
+            + Thêm sản phẩm
+        </a>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading$ | async">
+        <span>⏳ Đang tải...</span>
+    </div>
+
+    <!-- Error -->
+    <div class="alert alert-error" *ngIf="error$ | async as errorMsg">
+        ⚠️ {{ errorMsg }}
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper" *ngIf="!(loading$ | async)">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Danh mục</th>
+                    <th>Giá (VNĐ)</th>
+                    <th>Tồn kho</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of (products$ | async) ?? []; trackBy: trackById">
+                    <td>{{ product.id }}</td>
+                    <td>
+                        <a [routerLink]="['/products', product.id]" class="product-name">
+                            {{ product.name }}
+                        </a>
+                    </td>
+                    <td><span class="badge">{{ product.category }}</span></td>
+                    <td class="price">{{ product.price | number }} đ</td>
+                    <td>
+                        <span [class.low-stock]="product.stock! < 20">
+                            {{ product.stock }}
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <a [routerLink]="['/products', product.id]" class="btn btn-sm btn-info">👁 Xem</a>
+                        <a [routerLink]="['/products', product.id, 'edit']" class="btn btn-sm btn-warning">✏️
+                            Sửa</a>
+                        <button class="btn btn-sm btn-danger" (click)="onDelete(product.id!)">🗑 Xóa</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>

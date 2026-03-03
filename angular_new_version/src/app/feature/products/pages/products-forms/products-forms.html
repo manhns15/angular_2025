@@ -1,0 +1,85 @@
+<div class="page">
+
+    <div class="back-nav">
+        <a routerLink="/products">← Quay lại danh sách</a>
+    </div>
+
+    <div class="form-card">
+        <h1>{{ isEditMode ? '✏️ Chỉnh sửa sản phẩm' : '➕ Thêm sản phẩm mới' }}</h1>
+
+
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+            <!-- Tên sản phẩm -->
+            <div class="form-group">
+                <label for="name">Tên sản phẩm <span class="required">*</span></label>
+                <input id="name" type="text" formControlName="name" placeholder="Nhập tên sản phẩm..." />
+                @if (productForm.controls.name.touched && productForm.controls.name.invalid) {
+                <small class="error-msg">
+                    @if (productForm.controls.name.errors?.['required']) { Required }
+                    @if (productForm.controls.name.errors?.['minlength']) { Min 3 characters }
+                </small>
+                }
+            </div>
+
+            <!-- Giá & Danh mục -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="price">Giá (VNĐ) <span class="required">*</span></label>
+                    <input id="price" type="number" formControlName="price" placeholder="0" />
+                    @if (productForm.controls.price.touched && productForm.controls.price.invalid) {
+                    <small class="error-msg">
+                        @if (productForm.controls.price.errors?.['required']) { Required }
+                        @if (productForm.controls.price.errors?.['min']) { Min 15000 }
+                    </small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Danh mục <span class="required">*</span></label>
+                    <select id="category" formControlName="category">
+                        <option value="">-- Chọn danh mục --</option>
+                        <option value="Điện thoại">Điện thoại</option>
+                        <option value="Laptop">Laptop</option>
+                        <option value="Tablet">Tablet</option>
+                        <option value="Phụ kiện">Phụ kiện</option>
+                    </select>
+                    @if (productForm.controls.category.touched && productForm.controls.category.invalid) {
+                    <small class="error-msg">
+                        @if (productForm.controls.category.errors?.['required']) { Required }
+                    </small>
+                    }
+                </div>
+            </div>
+
+            <!-- Tồn kho -->
+            <div class="form-group">
+                <label for="stock">Số lượng tồn kho <span class="required">*</span></label>
+                <input id="stock" type="number" formControlName="stock" placeholder="0" />
+                @if (productForm.controls.stock.touched && productForm.controls.stock.invalid) {
+                <small class="error-msg">
+                    @if (productForm.controls.stock.errors?.['required']) { Required }
+                    @if (productForm.controls.stock.errors?.['min']) { Min 1 }
+                </small>
+                }
+            </div>
+
+            <!-- Mô tả -->
+            <div class="form-group">
+                <label for="description">Mô tả</label>
+                <textarea id="description" formControlName="description" rows="4"
+                    placeholder="Nhập mô tả sản phẩm..."></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-actions">
+                <a routerLink="/products" class="btn btn-outline">Huỷ</a>
+                <button type="submit" class="btn btn-primary">
+                    Lưu
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
