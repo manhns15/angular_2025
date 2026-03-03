@@ -1,5 +1,6 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, inject, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { Product } from '../../../../core/models/products.model';
 import { ProductsStore } from '../../../store/products.store';
 
@@ -9,22 +10,22 @@ import { ProductsStore } from '../../../store/products.store';
   templateUrl: './products-list.html',
   styleUrl: './products-list.scss',
 })
-export class ProductsList implements OnInit, OnDestroy {
-  // inject() cho phép dùng service ngay tại field initializer
-  // Khác với constructor injection — service đã có sẵn trước khi field được khởi tạo
+export class ProductsList implements OnDestroy {
   private productsStore = inject(ProductsStore);
 
-  // Gán Observable trực tiếp → dùng async pipe trong template
-  // Không cần subscribe thủ công → không cần unsubscribe → không lo memory leak
-  products$ = this.productsStore.products$;
   loading$ = this.productsStore.loading$;
   error$ = this.productsStore.error$;
 
-  // Vẫn giữ destroy$ nếu cần takeUntil cho các subscription thủ công sau này
   private destroy$ = new Subject<void>();
+  products$ = this.productsStore.productsSearch$;
+
+  searchControl = new FormControl('');
 
   ngOnInit(): void {
     this.productsStore.loadProducts();
+    this.searchControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((q) => this.productsStore.searchProducts(q ?? ''));
   }
 
   ngOnDestroy(): void {

@@ -132,6 +132,27 @@
   font-size: 1rem;
 }
 
+/* Search Bar */
+.search-bar {
+  margin-bottom: 1.25rem;
+
+  input {
+    width: 100%;
+    padding: 0.7rem 1.1rem;
+    border: 2px solid #e8e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #4361ee;
+      outline: none;
+    }
+  }
+}
+
 /* ==================
    TABLE — (list page)
    ================== */

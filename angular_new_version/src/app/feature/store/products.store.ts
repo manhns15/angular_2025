@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, exhaustMap, map, switchMap } from 'rxjs/operators';
 import { Product } from '../../core/models/products.model';
 import { ProductsService } from '../../core/services/products.service';
 
@@ -12,6 +12,7 @@ export class ProductsStore {
   private readonly _product = new BehaviorSubject<Product | null>(null);
   private readonly _loading = new BehaviorSubject<boolean>(false);
   private readonly _error = new BehaviorSubject<string>('');
+  private readonly _searchQuery = new BehaviorSubject<string>('');
 
   // ── Public Selectors (read-only) ───────────────────────────────────────────
   // asObservable() ngăn component gọi .next() từ bên ngoài
@@ -142,5 +143,17 @@ export class ProductsStore {
         this._loading.next(false);
       },
     });
+  }
+
+  readonly productsSearch$ = this._searchQuery.pipe(
+    debounceTime(400),
+    distinctUntilChanged(),
+    switchMap((query) =>
+      query?.trim() ? this.productService.search(query.trim()) : this.products$,
+    ),
+  );
+
+  searchProducts(query: string): void {
+    this._searchQuery.next(query);
   }
 }

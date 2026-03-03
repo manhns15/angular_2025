@@ -64,4 +64,19 @@ export class ProductsService {
   private handleError(error: any): Observable<never> {
     return throwError(() => new Error(error.message || 'Lỗi server'));
   }
+
+  // =====================
+  // Search
+  // =====================
+  search(query: string): Observable<Product[]> {
+    return this.http
+      .get<Product[]>(`${this.apiUrl}?name=${query}`)
+      .pipe(catchError(this.handleError));
+  }
+  // =====================
+  // Filter by category
+  // =====================
+  getByCategory(category: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}?category=${category}`);
+  }
 }
