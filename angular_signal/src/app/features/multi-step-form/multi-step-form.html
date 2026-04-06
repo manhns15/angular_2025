@@ -1,0 +1,130 @@
+<div class="wrapper">
+
+    <!-- ── Step Indicator ───────────────────────────────── -->
+    <div class="steps">
+        <div class="step" [class.active]="currentStep() >= 1" (click)="currentStep() > 1 && prevStep()">
+            1. Thông tin
+        </div>
+        <div class="line" [class.done]="currentStep() > 1"></div>
+        <div class="step" [class.active]="currentStep() >= 2">
+            2. Kỹ năng
+        </div>
+        <div class="line" [class.done]="currentStep() > 2"></div>
+        <div class="step" [class.active]="currentStep() >= 3">
+            3. Xác nhận
+        </div>
+    </div>
+
+    <div class="card">
+
+        <!-- ══════════════════════════════════════════════════
+         STEP 1 — Thông tin cá nhân
+    ══════════════════════════════════════════════════ -->
+        @if (currentStep() === 1) {
+        <form [formGroup]="step1" (ngSubmit)="nextStep()">
+            <h2>📝 Thông tin cá nhân</h2>
+
+            <div class="field">
+                <label>Họ và tên *</label>
+                <input formControlName="fullName" placeholder="Nguyễn Văn A" />
+                @if (step1.controls.fullName.touched && step1.controls.fullName.invalid) {
+                <span class="err">Bắt buộc, tối thiểu 2 ký tự</span>
+                }
+            </div>
+
+            <div class="field">
+                <label>Email *</label>
+                <input formControlName="email" type="email" placeholder="example@gmail.com" />
+                @if (step1.controls.email.touched && step1.controls.email.invalid) {
+                <span class="err">Email không hợp lệ</span>
+                }
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn primary">Tiếp theo →</button>
+            </div>
+        </form>
+        }
+
+        <!-- ══════════════════════════════════════════════════
+         STEP 2 — Kỹ năng (FormArray)
+    ══════════════════════════════════════════════════ -->
+        @if (currentStep() === 2) {
+        <form [formGroup]="step2" (ngSubmit)="nextStep()">
+            <h2>💼 Kỹ năng của bạn</h2>
+
+            <!-- formArrayName: khai báo tên của FormArray -->
+            <div formArrayName="skills">
+                @for (skill of skills.controls; track $index) {
+
+                <!-- formGroupName: index của FormGroup trong array -->
+                <div class="skill-row" [formGroupName]="$index">
+                    <div class="field">
+                        <label>Tên kỹ năng *</label>
+                        <input formControlName="name" placeholder="Angular, Java..." />
+                        @if (skill.get('name')?.touched && skill.get('name')?.invalid) {
+                        <span class="err">Bắt buộc</span>
+                        }
+                    </div>
+
+                    <div class="field">
+                        <label>Cấp độ</label>
+                        <select formControlName="level">
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn remove" (click)="removeSkill($index)">🗑️</button>
+                </div>
+
+                }
+            </div>
+
+            <button type="button" class="btn add" (click)="addSkill()">＋ Thêm kỹ năng</button>
+
+            <div class="actions">
+                <button type="button" class="btn outline" (click)="prevStep()">← Quay lại</button>
+                <button type="submit" class="btn primary">Tiếp theo →</button>
+            </div>
+        </form>
+        }
+
+        <!-- ══════════════════════════════════════════════════
+         STEP 3 — Xác nhận (chỉ đọc, dùng getRawValue)
+    ══════════════════════════════════════════════════ -->
+        @if (currentStep() === 3) {
+        <div>
+            <h2>✅ Xác nhận thông tin</h2>
+
+            @if (!submitted()) {
+            <div class="review">
+                <p><strong>👤 Họ tên:</strong> {{ step1.getRawValue().fullName }}</p>
+                <p><strong>📧 Email:</strong> {{ step1.getRawValue().email }}</p>
+                <hr />
+                <strong>💼 Kỹ năng:</strong>
+                <ul>
+                    @for (s of step2.getRawValue().skills; track $index) {
+                    <li>{{ s.name }} — {{ s.level }}</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="actions">
+                <button class="btn outline" (click)="prevStep()">← Quay lại</button>
+                <button class="btn success" (click)="onSubmit()">🚀 Gửi</button>
+            </div>
+
+            } @else {
+            <div class="success">
+                🎉 Gửi thành công! Cảm ơn bạn.
+                <br /><br />
+                <button class="btn outline" (click)="reset()">🔄 Làm lại</button>
+            </div>
+            }
+        </div>
+        }
+
+    </div>
+</div>
